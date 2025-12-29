@@ -254,58 +254,8 @@ Left Side Attachments (parse-kanbun):
 // )
 //
 
+#import "../utils/display.typ": show-example
 
-
-#let show-example(text, ..args) = [
-  #set heading(outlined: false)
-  === #hakubun(text)
-  #show box: set align(center)
-  #show raw: set align(left)
-  #box(
-    width: 75%,
-    grid(
-      columns: 2,
-      inset: 1em,
-      grid.cell(
-        colspan: 2,
-        {
-          let pos-args = if (args.pos().len() > 0) {
-            repr(args.pos()).slice(0, -2) + ", "
-          } else {
-            ""
-          }
-
-          let named-args = if (args.named().len() > 0) {
-            repr(args.named()).slice(1, -1)
-          } else {
-            ""
-          }
-          raw(
-            "#import \"{import-path}\": kanbun\n\n#kanbun(\""
-              + text
-              + "\", height: 10em"
-              + if pos-args.len() > 0 or named-args.len() > 0 {
-                ", "
-              } else {
-                ""
-              }
-              + pos-args
-              + named-args
-              + ")",
-            lang: "typ",
-            block: true,
-          )
-        },
-      ),
-      kanbun(text, height: 10em, ..args),
-      [
-        #set align(horizon)
-        #set par(leading: 1em)
-        #yomikudasi(text)
-      ],
-    ),
-  )
-]
 #show-example(
   "學ビテ而時ニ習フ[㆑]之ヲ、不[㆓]亦タ説バシカラ[㆒]乎？有リ[㆑]朋自リ[㆓]遠方[㆒]来タル、不[㆓]亦タ樂シカラ[㆒]乎？人不シテ[㆑]知ラ而不[㆑]慍ミ、不[㆓]亦タ君子ナラ[㆒]乎？",
   tight: true,
