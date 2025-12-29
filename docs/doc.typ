@@ -66,7 +66,7 @@
 このパッケージは漢文の疑似縦書き訓点等付きレンダリングを行うためのライブラリです。主にunt氏（\@UntPhesoca）のkanbunHTML及び陳元鎬（\@Nyoeghau）氏のLaTeX用`kanbun`パッケージから着想を得て制作されたものです。
 
 = 使い方の例 / Usage Examples
-#include "./example.typ"
+#include "./sections/example.typ"
 
 #include "./sections/extras.typ"
 

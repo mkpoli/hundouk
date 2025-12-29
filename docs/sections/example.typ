@@ -1,4 +1,4 @@
-#import "../src/lib.typ": kanbun, hakubun, parse-kanbun, parse-wenyan, render-kanbun, yomikudasi
+#import "../../src/lib.typ": kanbun, hakubun, parse-kanbun, parse-wenyan, render-kanbun, yomikudasi
 #set text(font: "Noto Serif CJK JP")
 
 == 簡単な実例
@@ -164,7 +164,7 @@
 )
 
 == 字間・行間・改行
-#import "./utils/display.typ": show-simple
+#import "../utils/display.typ": show-simple
 
 #show-simple(
   ```typ
