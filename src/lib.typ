@@ -160,6 +160,26 @@
         merged-reading = last-char-reading
       }
 
+      // TTB: Merge Okurigana into the Merged Reading string
+      if merged-reading != none and writing-direction == ttb {
+        let okuri-parts = ()
+        for child in children {
+          if child.type == "character" {
+            let o = child.at("okurigana", default: none)
+            if o != none { okuri-parts.push(o) }
+          }
+        }
+        let full-okuri = okuri-parts.join("")
+        if full-okuri != "" {
+          if type(merged-reading) == str {
+            merged-reading += full-okuri
+          } else {
+            // Fallback for content
+            merged-reading = [#merged-reading#full-okuri]
+          }
+        }
+      }
+
       // 2. Left Ruby (Left/Bottom)
       let left-ruby-count = 0
       let last-char-left-ruby = none
@@ -182,12 +202,17 @@
       let grid-gutters = ()
       let grid-cells = ()
       let current-track-idx = 0
+      let extra-ltr-tracks = 0
 
       for (idx, child) in children.enumerate() {
         if child.type == "character" {
           let surface = child.surface
           let reading = if merged-reading != none { none } else { child.at("reading", default: none) }
-          let okurigana = child.at("okurigana", default: none)
+          // TTB: Okurigana is merged into reading, so suppress here.
+          // LTR: Okurigana remains separate.
+          let okurigana = if merged-reading != none and writing-direction == ttb { none } else {
+            child.at("okurigana", default: none)
+          }
           let kaeriten = child.at("kaeriten", default: none)
           let left-ruby = if merged-left-ruby != none { none } else { child.at("left-ruby", default: none) }
           let left-okurigana = child.at("left-okurigana", default: none)
@@ -197,12 +222,14 @@
           let next-is-connector = (idx + 1 < children.len() and children.at(idx + 1).type == "connector")
           // Logic 1: Existing "move-kaeriten" (moves to NEXT connector). Usually for `Re` (returns to prev).
           // If `A[Re]=B`, `Re` on `A` moves to `=`.
-          let move-kaeriten = (kaeriten != none and next-is-connector)
+          let move-kaeriten = (kaeriten != none and next-is-connector and writing-direction == ttb)
 
           // Logic 2: "Steal back" (move to PREV connector). Usually for `1` (series marker).
           // If `A-B[1]`, `1` on `B` moves to `-`.
           let prev-is-connector = (idx > 0 and children.at(idx - 1).type == "connector")
-          let steal-kaeriten = (kaeriten != none and hang-kaeriten-on-connector and prev-is-connector)
+          let steal-kaeriten = (
+            kaeriten != none and hang-kaeriten-on-connector and prev-is-connector and writing-direction == ttb
+          )
 
           let kaeriten-for-this = if move-kaeriten or steal-kaeriten { none } else { kaeriten }
 
@@ -308,110 +335,68 @@
 
           // Attachments (Okurigana / Kaeriten / Left Okurigana / TTB Punctuation)
           // Need extra track if present
-          if okurigana != none or kaeriten-for-this != none or left-okurigana != none or ttb-punct {
+          if writing-direction == ltr {
+            // LTR Logic
+            // 1. Left Ruby (In-line, Bottom of Char)
+            if left-ruby-content != none {
+              grid-cells.push(
+                grid.cell(
+                  x: k,
+                  y: 3,
+                  colspan: 2,
+                  align: center + top,
+                  fill: if debug { rgb("#f2666647") } else { none },
+                  left-ruby-content,
+                ),
+              )
+            }
+
+            // 2. Side Columns (Right of Char)
+            // Okurigana Track
+            if okurigana-content != none {
+              grid-gutters.push(annotation-gutter)
+              grid-tracks.push(auto)
+              let trk = current-track-idx
+              current-track-idx += 1
+              extra-ltr-tracks += 1
+              grid-cells.push(
+                grid.cell(
+                  x: trk,
+                  y: 0,
+                  rowspan: 2,
+                  align: left + horizon,
+                  fill: if debug { rgb("#fac400") } else { none },
+                  okurigana-content,
+                ),
+              )
+            }
+
+            // Kaeriten Track
+            if kaeriten-content != none or left-okurigana-content != none {
+              grid-gutters.push(annotation-gutter)
+              grid-tracks.push(auto)
+              let trk = current-track-idx
+              current-track-idx += 1
+              extra-ltr-tracks += 1
+              grid-cells.push(
+                grid.cell(
+                  x: trk,
+                  y: 2,
+                  rowspan: 2,
+                  align: left + horizon,
+                  fill: if debug { rgb("#00edfa") } else { none },
+                  stack(dir: ttb, spacing: 0em, left-okurigana-content, kaeriten-content),
+                ),
+              )
+            }
+          } else if okurigana != none or kaeriten-for-this != none or left-okurigana != none or ttb-punct {
+            // TTB Attachments (Single Track)
             let g = annotation-gutter
             grid-gutters.push(g)
 
             grid-tracks.push(auto)
             let annot-track = current-track-idx
             current-track-idx += 1
-
-            if writing-direction == ttb {
-              // TTB: Annotations in Row `annot-track`
-              if okurigana-content != none {
-                grid-cells.push(
-                  grid.cell(
-                    x: 3,
-                    y: annot-track,
-                    align: left + top,
-                    fill: if debug { rgb("#fac400") } else { none },
-                    okurigana-content,
-                  ),
-                )
-              }
-              if kaeriten-content != none or left-okurigana-content != none {
-                grid-cells.push(
-                  grid.cell(
-                    x: 1,
-                    y: annot-track,
-                    align: right + top,
-                    fill: if debug { rgb("#00edfa") } else { none },
-                    stack(dir: writing-direction, spacing: 0em, left-okurigana-content, kaeriten-content),
-                  ),
-                )
-              }
-              if ttb-punct {
-                let p-content = align(
-                  top + right,
-                  move(
-                    ..punctuation-offset,
-                    text(size: 1em)[#punctuation.surface],
-                  ),
-                )
-                grid-cells.push(
-                  grid.cell(
-                    x: 2,
-                    y: annot-track,
-                    align: right + top,
-                    fill: if debug { rgb("#0905ff47") } else { none },
-                    p-content,
-                  ),
-                )
-              }
-            } else {
-              // LTR: Annotations in Col `annot-track`
-              // Okurigana: Right side (y:1, rowspan:2?) or just cell?
-              // Standard cell LTR: okurigana x:3, y:1.
-              // Here `annot-track` is the column AFTER Kanji.
-              // Okurigana spans height of Kanji (y=1..2)? Or just center?
-              // Standard: `y: 1, rowspan: 2, align: left + horizon`.
-              if okurigana-content != none {
-                grid-cells.push(
-                  grid.cell(
-                    x: annot-track,
-                    y: 0,
-                    rowspan: 2,
-                    align: left + horizon,
-                    fill: if debug { rgb("#fac400") } else { none },
-                    okurigana-content,
-                  ),
-                )
-              }
-              // For LTR, Kaeriten and Left Ruby go to `y:3` of Kanji columns `k`.
-              // Okurigana goes to `annot-track` (Right).
-              let bottom-stack = stack(
-                dir: ttb,
-                spacing: 0em,
-                left-ruby-content,
-                kaeriten-content,
-                left-okurigana-content,
-              )
-              grid-cells.push(
-                grid.cell(
-                  x: k,
-                  y: 3,
-                  colspan: 2,
-                  align: center + top,
-                  fill: if debug { rgb("#f2666647") } else { none },
-                  bottom-stack,
-                ),
-              )
-            }
-          } else if writing-direction == ltr {
-            // No okurigana track. But still render Bottom stuff (Left Ruby / Kaeriten)
-            let contents = (left-ruby-content, kaeriten-content, left-okurigana-content).filter(it => it != none)
-            if contents.len() > 0 {
-              grid-cells.push(
-                grid.cell(
-                  x: k,
-                  y: 3,
-                  colspan: 2,
-                  align: center + top,
-                  fill: if debug { rgb("#f2666647") } else { none },
-                  stack(dir: ttb, spacing: 0em, ..contents),
-                ),
-              )
-            }
           }
 
           // LTR Punctuation (Append new track)
@@ -449,7 +434,7 @@
           let extra-content-list = ()
 
           // 1. Take from Prev (Existing logic, e.g. Re)
-          if prev-idx >= 0 and children.at(prev-idx).type == "character" {
+          if writing-direction == ttb and prev-idx >= 0 and children.at(prev-idx).type == "character" {
             let prev-char = children.at(prev-idx)
             let k = prev-char.at("kaeriten", default: none)
             if k != none {
@@ -463,7 +448,12 @@
           }
 
           // 2. Take from Next (New logic, e.g. Ichi)
-          if hang-kaeriten-on-connector and next-idx < children.len() and children.at(next-idx).type == "character" {
+          if (
+            writing-direction == ttb
+              and hang-kaeriten-on-connector
+              and next-idx < children.len()
+              and children.at(next-idx).type == "character"
+          ) {
             let next-char = children.at(next-idx)
             let k = next-char.at("kaeriten", default: none)
             if k != none {
@@ -586,7 +576,7 @@
             grid.cell(
               x: 0,
               y: 0,
-              colspan: current-track-idx - 1,
+              colspan: current-track-idx - extra-ltr-tracks,
               align: center + bottom,
               fill: if debug { rgb("#ff8aed47") } else { none },
               rc,
