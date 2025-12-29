@@ -602,7 +602,7 @@
             grid.cell(
               x: 0,
               y: 3,
-              colspan: current-track-idx - 3,
+              colspan: current-track-idx - 2,
               align: center + top,
               fill: if debug { rgb("#f2666647") } else { none },
               lrc,
