@@ -257,6 +257,7 @@ Left Side Attachments (parse-kanbun):
 
 
 #let show-example(text, ..args) = [
+  #set heading(outlined: false)
   === #hakubun(text)
   #show box: set align(center)
   #show raw: set align(left)
