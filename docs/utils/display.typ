@@ -9,6 +9,19 @@
   )
 }
 
+
+#let show-compare((code-a, result-a), (code-b, result-b)) = {
+  set align(center)
+  grid(
+    columns: 2,
+    column-gutter: 2em,
+    row-gutter: 1em,
+    inset: 0.5em,
+    code-a, code-b,
+    result-a, result-b,
+  )
+}
+
 #let show-example(text, ..args) = [
   #set heading(outlined: false)
   === #hakubun(text)

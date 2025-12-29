@@ -1,3 +1,4 @@
+#import "../lib.typ": ruby, ruby-tight
 #import "../../src/lib.typ": kanbun, hakubun, parse-kanbun, parse-wenyan, render-kanbun, yomikudasi
 #set text(font: "Noto Serif CJK JP")
 
@@ -164,7 +165,7 @@
 )
 
 == 字間・行間・改行
-#import "../utils/display.typ": show-simple
+#import "../utils/display.typ": show-simple, show-compare
 
 #show-simple(
   ```typ
@@ -185,10 +186,42 @@
   ),
 )
 
+== 竪線（縦棒・ハイフン）
 
+「`=`」（`U+003D` `EQUALS SIGN`、半角等号）または「`―`」（`U+2015` `HORIZONTAL BAR`、横棒）を漢字グループの間に置くことで、漢字同士を#ruby-tight[たてせん][竪線]（または#ruby-tight[たてぼう][縦棒]・#ruby-tight[hyphen][ハイフン]とも言う）で結ぶことができます。縦組では、以下のように返点がハイフンの横につく。
 
-#figure(
-  caption: "Connected Word Unit Test (TTB)",
+#kanbun(debug: true, writing-direction: ltr, "發(た)[二]ツ大=和ニ(やまと)[一]")
+#kanbun(debug: true, "發(た)[二]ツ大=和ニ(やまと)[一]")
+#show-compare(
+  (
+    ```typ
+    #import "{import-path}": kanbun
+
+    #kanbun(
+      writing-direction: ttb,
+      "發(た)[二]ツ大=和(やまと)ニ[一]",
+    )
+    ```,
+    kanbun(
+      writing-direction: ttb,
+      "發(た)[二]ツ大=和(やまと)ニ[一]",
+    ),
+  ),
+  (
+    ```typ
+    #import "{import-path}": kanbun
+
+    #kanbun(
+      writing-direction: ltr,
+      "發(た)[二]ツ大=和(やまと)ニ[一]",
+    )
+    ```,
+    kanbun(
+      writing-direction: ltr,
+      "發(た)[二]ツ大=和(やまと)ニ[一]",
+    ),
+  ),
+)
   kanbun(
     debug: true,
     writing-direction: ttb,

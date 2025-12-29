@@ -7,6 +7,14 @@
   delimiter: "|", // The delimiter between words
   auto-spacing: true, // Automatically add necessary space around words
 )
+#let ruby-tight = get-ruby(
+  size: 0.4em, // Ruby font size
+  dy: 0pt, // Vertical offset of the ruby
+  pos: top, // Ruby position (top or bottom)
+  alignment: "center", // Ruby alignment ("center", "start", "between", "around")
+  delimiter: "|", // The delimiter between words
+  auto-spacing: true, // Automatically add necessary space around words
+)
 
 #let doc(
   author: none,
