@@ -7,8 +7,8 @@
 /// - tight (bool): trueの場合はアキ組、falseの場合はベタ組
 /// - color-hypen (auto, color): 縦棒（ハイフン）の色
 /// - hypen (function): 縦棒（ハイフン）のレンダラー
-/// - ruby-tracking (length): 読みがな（ルビー、ふりがな）の字間
-/// - okurigana-tracking (length): 送り仮名の字間
+/// - ruby-tracking (length): 読みがな（ルビー、ふりがな）の字間（`auto`の場合、縦書きは`0.1em`、横書きは`0.01em`）
+/// - okurigana-tracking (length): 送り仮名の字間（`auto`の場合、縦書きは`0.1em`、横書きは`0.01em`）
 /// - ruby-size (length): 読みがな（ルビー、ふりがな）の大きさ（フォントサイズ）
 /// - writing-direction (ltr, ttb): 漢文の向き
 /// - okurigana-size (length): 送り仮名の大きさ（フォントサイズ）
@@ -22,8 +22,8 @@
 #let render-kanbun(
   tight: true,
   color-hypen: auto,
-  ruby-tracking: 0.1em,
-  okurigana-tracking: 0.1em,
+  ruby-tracking: auto,
+  okurigana-tracking: auto,
   ruby-size: 0.5em,
   okurigana-size: 0.5em,
   ruby-gutter: 0em,
@@ -91,6 +91,14 @@
     panic("color-hypen must be either auto or color")
   }
   // #endregion
+
+  let ruby-tracking = if ruby-tracking == auto {
+    if writing-direction == ltr { 0.01em } else { 0.1em }
+  } else { ruby-tracking }
+
+  let okurigana-tracking = if okurigana-tracking == auto {
+    if writing-direction == ltr { 0.01em } else { 0.1em }
+  } else { okurigana-tracking }
 
   let leading = if line-spacing == auto {
     par.leading
