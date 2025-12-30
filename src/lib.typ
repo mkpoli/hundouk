@@ -30,6 +30,7 @@
   annotation-gutter: 0em,
   ruby-okurigana-gutter: 0.05em,
   hang-kaeriten-on-connector: true,
+  max-chars-for-kaeriten-hanging-on-hyphen: none,
   height: auto,
   writing-direction: ttb,
   use-unicode-kanbun: true,
@@ -139,6 +140,14 @@
     if node.type == "connected-group" {
       // Connected group rendering
       let children = node.children
+      let char-count = children.filter(c => c.type == "character").len()
+      let should-hang-kaeriten = (
+        hang-kaeriten-on-connector
+          and (
+            max-chars-for-kaeriten-hanging-on-hyphen == none or char-count <= max-chars-for-kaeriten-hanging-on-hyphen
+          )
+      )
+
       let merged-reading = none
       let merged-left-ruby = none
 
@@ -228,7 +237,7 @@
           // If `A-B[1]`, `1` on `B` moves to `-`.
           let prev-is-connector = (idx > 0 and children.at(idx - 1).type == "connector")
           let steal-kaeriten = (
-            kaeriten != none and hang-kaeriten-on-connector and prev-is-connector and writing-direction == ttb
+            kaeriten != none and should-hang-kaeriten and prev-is-connector and writing-direction == ttb
           )
 
           let kaeriten-for-this = if move-kaeriten or steal-kaeriten { none } else { kaeriten }
@@ -397,6 +406,47 @@
             grid-tracks.push(auto)
             let annot-track = current-track-idx
             current-track-idx += 1
+
+            if okurigana-content != none {
+              grid-cells.push(
+                grid.cell(
+                  x: 3,
+                  y: annot-track,
+                  align: left + top,
+                  fill: if debug { rgb("#fac400") } else { none },
+                  okurigana-content,
+                ),
+              )
+            }
+            if kaeriten-content != none or left-okurigana-content != none {
+              grid-cells.push(
+                grid.cell(
+                  x: 1,
+                  y: annot-track,
+                  align: right + top,
+                  fill: if debug { rgb("#00edfa") } else { none },
+                  stack(dir: writing-direction, spacing: 0em, left-okurigana-content, kaeriten-content),
+                ),
+              )
+            }
+            if ttb-punct {
+              let p-content = align(
+                top + right,
+                move(
+                  ..punctuation-offset,
+                  text(size: 1em)[#punctuation.surface],
+                ),
+              )
+              grid-cells.push(
+                grid.cell(
+                  x: 2,
+                  y: annot-track,
+                  align: right + top,
+                  fill: if debug { rgb("#0905ff47") } else { none },
+                  p-content,
+                ),
+              )
+            }
           }
 
           // LTR Punctuation (Append new track)
@@ -450,7 +500,7 @@
           // 2. Take from Next (New logic, e.g. Ichi)
           if (
             writing-direction == ttb
-              and hang-kaeriten-on-connector
+              and should-hang-kaeriten
               and next-idx < children.len()
               and children.at(next-idx).type == "character"
           ) {
@@ -487,7 +537,7 @@
           let c-box = box(fill: if debug { orange } else { none }, c-content)
 
           if writing-direction == ttb {
-            if hang-kaeriten-on-connector and extra-content != none {
+            if should-hang-kaeriten and extra-content != none {
               // Hang Kaeriten: Split Column
               // Kaeriten (Left/Top Half) -> x: 1
               grid-cells.push(
@@ -519,7 +569,7 @@
             }
           } else {
             // LTR
-            if hang-kaeriten-on-connector and extra-content != none {
+            if should-hang-kaeriten and extra-content != none {
               // Hang Kaeriten: Split Row for LTR
               // Connector in Top Half (y: 1)
               // Move connector down by 0.25em
@@ -946,7 +996,9 @@
 /// - okurigana-size (length): 送り仮名の大きさ（フォントサイズ）
 /// - ruby-gutter (length): 読みがな（ルビー）と親文字の間隔
 /// - annotation-gutter (length): 注釈（送り仮名、返り点）と親文字の間隔
+/// - annotation-gutter (length): 注釈（送り仮名、返り点）と親文字の間隔
 /// - hang-kaeriten-on-connector (bool): 接続符（ハイフン）に返り点をぶら下げるかどうか
+/// - max-chars-for-kaeriten-hanging-on-hyphen (int): 接続符（ハイフン）に返り点をぶら下げる際の文字数制限（指定した文字数より多い場合はぶら下げない）
 /// - line-spacing (length): 行間
 /// - nodes (list): 漢文のノードリスト
 /// ->

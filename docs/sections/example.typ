@@ -222,21 +222,43 @@
     ),
   ),
 )
-  kanbun(
-    debug: true,
-    writing-direction: ttb,
-    "東(とう)=京(きやう)=都(と)。",
+
+3つ以上の場合は、`max-chars-for-kaeriten-hanging-on-hyphen`オプションで制御することで、最後のハイフンにつくか、最後の文字の左下につくかの選択ができます。
+
+#show-compare(
+  (
+    ```typ
+    #import "{import-path}": kanbun
+    #kanbun(
+      writing-direction: ttb,
+      "自(よ)[二]リ東(とう)=京(きやう)=都(と)[一]。",
+    )
+    ```,
+    kanbun(
+      debug: true,
+      writing-direction: ttb,
+      "自(よ)[二]リ東(とう)=京(きやう)=都(と)[一]。",
+    ),
+  ),
+  (
+    ```typ
+    #import "{import-path}": kanbun
+    #kanbun(
+      writing-direction: ttb,
+      max-chars-for-kaeriten-hanging-on-hyphen: 2,
+      "自(よ)[二]リ東(とう)=京(きやう)=都(と)[一]。",
+    )
+    ```,
+    kanbun(
+      debug: true,
+      writing-direction: ttb,
+      max-chars-for-kaeriten-hanging-on-hyphen: 2,
+      "自(よ)[二]リ東(とう)=京(きやう)=都(と)[一]。",
+    ),
   ),
 )
 
-#figure(
-  caption: "Connected Word Unit Test (LTR)",
-  kanbun(
-    debug: true,
-    writing-direction: ltr,
-    "大=和(やまと)",
-  ),
-)
+== 左ルビ
 
 #figure(
   caption: "Merged Left Ruby Test",
