@@ -44,14 +44,15 @@
 #let package-info = toml("../typst.toml").package
 
 
-#let subtitle-text = "以テ[二]牒(てふ)=悉(しつ)‹Typst›ヲ[一]點ジ[二]漢(かん)=文(ぶん)ニ[一]。爲スノ[二]訓=讀[一]ヲ之器也。"
+#let subtitle-text = "以テ[二]牒(てふ)=悉(しつ)‹Typst›ヲ[一]點ジ[二]漢(かん)=文(ぶん)ニ[一]。爲スノ[二]訓(くん)=讀(どく)‹hundouk›[一]ヲ之器(うつわ)‹ツール›也。"
 
 #show: doc.with(
   title: [#package-info.name v#package-info.version],
   subtitle: [
     #kanbun(
-      // debug: true,
+      // debug: true,A
       ruby-gutter: 0.1em,
+      ruby-tracking: 0.01em,
       writing-direction: ltr,
       subtitle-text,
     )],
