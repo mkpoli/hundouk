@@ -703,6 +703,28 @@
       )
     }
 
+    if node.type == "quotation" {
+      return grid(
+        columns: if writing-direction == ttb { (0.5em, 1em, 0.5em) } else { (1em,) },
+        rows: if writing-direction == ttb { (1em,) } else { (2em,) },
+        align: center + horizon,
+        grid.cell(
+          x: if writing-direction == ttb { 1 } else { 0 },
+          align: if writing-direction == ttb {
+            if node.surface == "「" or node.surface == "『" {
+              right + top
+            } else {
+              left + top
+            }
+          } else {
+            center + horizon
+          },
+          node.surface,
+          fill: if debug { rgb(128, 128, 45, 50%) } else { none },
+        ),
+      )
+    }
+
     let surface = node.surface
     let reading = node.at("reading", default: none)
     let okurigana = node.at("okurigana", default: none)

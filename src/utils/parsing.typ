@@ -188,6 +188,12 @@
       continue
     }
 
+    if c == "「" or c == "」" or c == "『" or c == "』" {
+      nodes.push((type: "quotation", surface: c))
+      i += 1
+      continue
+    }
+
     // Check for special node types first
     if c == "\n" {
       nodes.push((type: "newline"))
