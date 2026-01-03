@@ -2,6 +2,7 @@
 #import "../src/lib.typ": kanbun
 #show heading: set align(center)
 #show heading: set block(spacing: 1.5em)
+#let debug = false
 
 = 學而
 
@@ -45,11 +46,11 @@
     .map(p => (
       {
         set align(right)
-        kanbun(height: 10em, p, debug: true)
+        kanbun(height: 10em, p, debug: debug)
       },
       {
         set align(left)
-        kanbun(height: 20em, p, writing-direction: ltr, debug: true)
+        kanbun(height: 20em, p, writing-direction: ltr, debug: debug)
       },
     ))
     .flatten()
