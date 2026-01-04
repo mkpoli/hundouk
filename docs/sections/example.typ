@@ -123,7 +123,7 @@
   #import "{import-path}": kanbun
 
   #kanbun(
-    writing-direction: ttb, // 縦組（デフォルト）
+    writing-direction: ttb, // 縦組（デフォ）
     "床前看[二]ル月光ヲ[一]，
     疑ウラクハ[二]是レ地上ノ霜カト[一]。
     舉[レ]ゲテ頭ヲ望ム[二]山月ヲ[一]，
