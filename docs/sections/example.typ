@@ -153,7 +153,7 @@
   ),
 )
 
-== 返点の位置
+== 返点と送り仮名の位置
 
 `kaeriten-offset`オプションを使用することで、返り点の位置をずらすこともできます.
 
@@ -166,18 +166,22 @@
     #import "{import-path}": kanbun
     #kanbun(
       kaeriten-offset: 0pt, // デフォルト
+      okurigana-x-offset: 0pt, // デフォルト
+      okurigana-y-offset: 0pt, // デフォルト
       tight: false,
       "白日依リテ[レ]山ニ盡キ，
-      黃河入リテ[レ]海ニ流ル。
+      黄河入リテ[レ]海ニ流ル。
       欲シ[二]窮メント[一]千里ノ目ヲ，
       更ニ上ル一層ノ樓。"
     )
     ```,
     kanbun(
       kaeriten-offset: 0pt,
+      okurigana-x-offset: 0pt,
+      okurigana-y-offset: 0pt,
       tight: false,
       "白日依リテ[レ]山ニ盡キ，
-      黃河入リテ[レ]海ニ流ル。
+      黄河入リテ[レ]海ニ流ル。
       欲シ[二]窮メント[一]千里ノ目ヲ，
       更ニ上ル一層ノ樓。",
     ),
@@ -187,6 +191,8 @@
     #import "{import-path}": kanbun
     #kanbun(
       kaeriten-offset: -0.25em,
+      okurigana-x-offset: 0pt,
+      okurigana-y-offset: 0.125em,
       tight: false,
       "白日依リテ[レ]山ニ盡キ，
       黃河入リテ[レ]海ニ流ル。
@@ -196,9 +202,11 @@
     ```,
     kanbun(
       kaeriten-offset: -0.25em,
+      okurigana-x-offset: 0pt,
+      okurigana-y-offset: 0.125em,
       tight: false,
       "白日依リテ[レ]山ニ盡キ，
-      黃河入リテ[レ]海ニ流ル。
+      黄河入リテ[レ]海ニ流ル。
       欲シ[二]窮メント[一]千里ノ目ヲ，
       更ニ上ル一層ノ樓。",
     ),
