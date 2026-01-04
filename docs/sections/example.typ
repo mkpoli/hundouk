@@ -206,7 +206,6 @@
 )
 
 == 字間・行間・改行
-#import "../utils/display.typ": show-simple, show-compare
 
 #show-simple(
   ```typ
