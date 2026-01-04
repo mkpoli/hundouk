@@ -1,5 +1,6 @@
 #import "../lib.typ": ruby, ruby-tight
-#import "../../src/lib.typ": kanbun, hakubun, parse-kanbun, parse-wenyan, render-kanbun, yomikudasi
+#import "../../src/lib.typ": hakubun, kanbun, parse-kanbun, parse-wenyan, render-kanbun, yomikudasi
+#import "../utils/display.typ": show-compare, show-simple
 #set text(font: "Noto Serif CJK JP")
 
 == 簡単な実例
