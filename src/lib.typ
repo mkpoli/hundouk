@@ -1,5 +1,5 @@
 #import "utils/parsing.typ": parse-kanbun, parse-wenyan
-#import "utils/kanbun.typ": hakubun, yomikudasi
+#import "utils/kanbun.typ": hakubun, unicode-kaeriten-to-normalized, yomikudasi
 #import "utils/rendering.typ": group-nodes
 
 /// 漢文の疑似縦書き訓点等付きレンダリング
@@ -17,6 +17,7 @@
 /// - hang-kaeriten-on-connector (bool): 接続符（ハイフン）に返り点をぶら下げるかどうか
 /// - line-spacing (length): 行間
 /// - debug (bool): trueの場合はデバッグ用の色を表示
+/// - use-unicode-kanbun (bool): trueの場合はUnicode漢文記号を使用、falseの場合はフォント互換性のため標準的な文字を使用
 /// - nodes (list): 漢文のノードリスト
 /// ->
 #let render-kanbun(
@@ -104,6 +105,20 @@
     par.leading
   } else {
     line-spacing
+  }
+
+  let nodes = if not use-unicode-kanbun {
+    nodes.map(node => {
+      if node.type == "character" and node.at("kaeriten", default: none) != none {
+        let k = node.kaeriten
+        let new-k = unicode-kaeriten-to-normalized(k)
+        node + (kaeriten: new-k)
+      } else {
+        node
+      }
+    })
+  } else {
+    nodes
   }
 
   let nodes = group-nodes(nodes)
@@ -1030,6 +1045,7 @@
 /// - hang-kaeriten-on-connector (bool): 接続符（ハイフン）に返り点をぶら下げるかどうか
 /// - max-chars-for-kaeriten-hanging-on-hyphen (int): 接続符（ハイフン）に返り点をぶら下げる際の文字数制限（指定した文字数より多い場合はぶら下げない）
 /// - line-spacing (length): 行間
+/// - use-unicode-kanbun (bool): trueの場合はUnicode漢文記号を使用、falseの場合はフォント互換性のため標準的な文字を使用
 /// - nodes (list): 漢文のノードリスト
 /// ->
 #let kanbun(..args) = render-kanbun(parse-kanbun(..args.pos()), ..args.named())
