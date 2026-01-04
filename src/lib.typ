@@ -18,6 +18,7 @@
 /// - line-spacing (length): 行間
 /// - debug (bool): trueの場合はデバッグ用の色を表示
 /// - use-unicode-kanbun (bool): trueの場合はUnicode漢文記号を使用、falseの場合はフォント互換性のため標準的な文字を使用
+/// - ruby-vertical-offset (length): 読みがな（ルビー）の縦方向の位置調整 (縦書き時のフォントパディング補正用)
 /// - nodes (list): 漢文のノードリスト
 /// ->
 #let render-kanbun(
@@ -30,6 +31,7 @@
   ruby-gutter: 0em,
   annotation-gutter: 0em,
   ruby-okurigana-gutter: 0.05em,
+  ruby-vertical-offset: 0.05em,
   hang-kaeriten-on-connector: true,
   max-chars-for-kaeriten-hanging-on-hyphen: none,
   height: auto,
@@ -263,7 +265,13 @@
 
           // Generate Content
           let reading-content = if reading != none {
-            format-annotation(reading, ruby-size, ruby-tracking)
+            let content = format-annotation(reading, ruby-size, ruby-tracking)
+            if writing-direction == ttb {
+              v(ruby-vertical-offset)
+              content
+            } else {
+              content
+            }
           } else { none }
           let okurigana-content = if okurigana != none {
             format-annotation(okurigana, okurigana-size, okurigana-tracking)
@@ -629,7 +637,13 @@
       // Merged Readings and Left Ruby
       if merged-reading != none or merged-okurigana != none {
         let rc = if merged-reading != none {
-          format-annotation(merged-reading, ruby-size, ruby-tracking)
+          let content = format-annotation(merged-reading, ruby-size, ruby-tracking)
+          if writing-direction == ttb {
+            v(ruby-vertical-offset)
+            content
+          } else {
+            content
+          }
         } else { none }
         let oc = if merged-okurigana != none {
           format-annotation(merged-okurigana, okurigana-size, okurigana-tracking)
@@ -904,6 +918,9 @@
         if should-merge-right {
           // Use component specific formatting
           let reading-content = if reading != none {
+            if writing-direction == ttb {
+              v(ruby-vertical-offset)
+            }
             format-annotation(reading, ruby-size, ruby-tracking)
           } else { none }
           let okurigana-content = if okurigana != none {
@@ -916,7 +933,12 @@
             ..(reading-content, okurigana-content).filter(x => x != none),
           )
         } else {
-          reading-content
+          if reading != none {
+            if writing-direction == ttb {
+              v(ruby-vertical-offset)
+            }
+            format-annotation(reading, ruby-size, ruby-tracking)
+          } else { none }
         },
       ),
 
@@ -1060,6 +1082,7 @@
 /// - max-chars-for-kaeriten-hanging-on-hyphen (int): 接続符（ハイフン）に返り点をぶら下げる際の文字数制限（指定した文字数より多い場合はぶら下げない）
 /// - line-spacing (length): 行間
 /// - use-unicode-kanbun (bool): trueの場合はUnicode漢文記号を使用、falseの場合はフォント互換性のため標準的な文字を使用
-/// - nodes (list): 漢文のノードリスト
+/// - ruby-vertical-offset (length): 読みがな（ルビー）の縦方向の位置調整 (縦書き時のフォントパディング補正用)
+/// - body (string, content): 漢文の文字列またはコンテンツノードリスト
 /// ->
 #let kanbun(..args) = render-kanbun(parse-kanbun(..args.pos()), ..args.named())
