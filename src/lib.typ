@@ -1,4 +1,4 @@
-#import "utils/parsing.typ": parse-kanbun, parse-wenyan
+#import "utils/parsing.typ": parse-kanbun, parse-wenyan, serialize-kanbun
 #import "utils/kanbun.typ": hakubun, unicode-kaeriten-to-normalized, yomikudasi
 #import "utils/rendering.typ": group-nodes
 

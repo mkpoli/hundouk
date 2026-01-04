@@ -1,5 +1,5 @@
 #import "../lib.typ": ruby, ruby-tight
-#import "../../src/lib.typ": hakubun, kanbun, parse-kanbun, parse-wenyan, render-kanbun, yomikudasi
+#import "../../src/lib.typ": hakubun, kanbun, parse-kanbun, parse-wenyan, render-kanbun, serialize-kanbun, yomikudasi
 #import "../utils/display.typ": show-compare, show-simple
 #set text(font: "Noto Serif CJK JP")
 
@@ -620,4 +620,7 @@ Left Side Attachments (parse-kanbun):
 
 
 #show-example("其ノ人弗ル能ハ應フル也。")
+
+
+
 
