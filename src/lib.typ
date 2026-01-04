@@ -790,11 +790,15 @@
       (x: 0, y: 1, colspan: 2, rowspan: 2)
     }
 
-    let should-merge-right = (writing-direction == ttb and not tight and reading != none and okurigana != none)
+    let should-merge-right = (writing-direction == ttb and reading != none and (okurigana != none or tight))
 
     let ruby-cell = if writing-direction == ttb {
       if should-merge-right {
-        (x: 3, y: 0, rowspan: 4, align: left + bottom)
+        if tight {
+          (x: 3, y: 1, rowspan: 3, align: left + top)
+        } else {
+          (x: 3, y: 0, rowspan: 4, align: left + bottom)
+        }
       } else if not tight and reading != none and okurigana == none {
         (x: 3, y: 1, rowspan: 2, align: left + horizon) // Ruby Only (Non-Tight)
       } else {
