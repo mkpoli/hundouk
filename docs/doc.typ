@@ -68,7 +68,7 @@
 = 概要 / Overview
 このパッケージはTypstを利用して、漢文の訓点文を疑似縦書きでレンダリングを行うためのライブラリです。
 
-具体的には、与えられたピュアテキストに特定なフォーマットで書かれた訓点情報付きの漢文テキストをパースし、得られた構造化漢文データを`grid`や`stack`などを用いることで擬似的に漢文をレンダリングするためのパッケージです。
+具体的には、与えられたピュアテキストに特定なフォーマット（@sec:format を参照）で書かれた訓点情報付きの漢文テキストをパースし、得られた構造化漢文データを`grid`や`stack`などを用いることで擬似的に漢文をレンダリングするためのパッケージです。
 
 これは、主にunt氏（\@UntPhesoca）のkanbunHTML及び陳元鎬（\@Nyoeghau）氏のLaTeX用`kanbun`パッケージから着想を得て制作されたものです。
 
@@ -78,6 +78,8 @@
 #include "./sections/example.typ"
 
 #include "./sections/extras.typ"
+
+#include "./sections/format.typ"
 
 = APIリファレンス / API Reference
 == 関数
