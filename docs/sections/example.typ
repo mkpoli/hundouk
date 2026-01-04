@@ -285,6 +285,72 @@
 )
 
 
+== ルビの縦方向位置
+
+`ruby-vertical-offset`オプションで、縦書き時のルビの縦方向の位置を微調整できます。フォントによってはルビが親文字に近すぎたり遠すぎたりする場合に有効です。
+#import "../texts/poems.typ": 黄鶴楼
+#show-compare(
+  shared-caption: "〔唐〕崔顥《黄鶴楼》",
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  ruby-vertical-offset: 0.05em, // デフォルト\n  \""
+        + 黄鶴楼
+        + "\"\n)",
+    ),
+    kanbun(
+      ruby-vertical-offset: 0.05em,
+      黄鶴楼,
+    ),
+  ),
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  ruby-vertical-offset: 0.2em, // 調整（下げる）\n  \""
+        + 黄鶴楼
+        + "\"\n)",
+    ),
+    kanbun(
+      ruby-vertical-offset: 0.2em,
+      黄鶴楼,
+    ),
+  ),
+)
+
+== Unicode漢文記号
+
+`use-unicode-kanbun`オプションを`true`（デフォルト）にすると、Unicodeの漢文記号（Kanbun Block, U+3190..U+319F）を使用します。`false`にすると、互換性のために通常の文字（`[一]`など）で近似してレンダリングします。`false`の場合はフォントが漢文記号を持っていなくても表示できる場合がありますが、見た目は異なります。
+#import "../texts/poems.typ": 江雪
+#show-compare(
+  shared-caption: "〔唐〕柳宗元《江雪》",
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  use-unicode-kanbun: true, // デフォルト\n  \"" + 江雪 + "\"\n)",
+    ),
+    kanbun(
+      use-unicode-kanbun: true,
+      江雪,
+    ),
+  ),
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  use-unicode-kanbun: false, // 標準文字で近似\n  \""
+        + 江雪
+        + "\"\n)",
+    ),
+    kanbun(
+      use-unicode-kanbun: false,
+      江雪,
+    ),
+  ),
+)
+
 == 竪線（縦棒・ハイフン）
 
 「`=`」（`U+003D` `EQUALS SIGN`、半角等号）または「`―`」（`U+2015` `HORIZONTAL BAR`、横棒）を漢字グループの間に置くことで、漢字同士を#ruby-tight[たてせん][竪線]（または#ruby-tight[たてぼう][縦棒]・#ruby-tight[hyphen][ハイフン]とも言う）で結ぶことができます。縦組では、以下のように返点がハイフンの横につく。
@@ -353,6 +419,36 @@
       writing-direction: ttb,
       max-chars-for-kaeriten-hanging-on-hyphen: 2,
       "自(よ)[二]リ東(とう)=京(きやう)=都(と)[一]。",
+    ),
+  ),
+)
+
+`color-hypen`オプションでハイフンの色を変更できます。
+#import "../texts/poems.typ": 黄鶴楼送孟浩然之廣陵
+#show-compare(
+  shared-caption: "〔唐〕李白《黄鶴楼送孟浩然之広陵》",
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  color-hypen: auto, // デフォルト\n  \""
+        + 黄鶴楼送孟浩然之廣陵
+        + "\"\n)",
+    ),
+    kanbun(
+      color-hypen: auto,
+      黄鶴楼送孟浩然之廣陵,
+    ),
+  ),
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  color-hypen: red, // 赤色\n  \"" + 黄鶴楼送孟浩然之廣陵 + "\"\n)",
+    ),
+    kanbun(
+      color-hypen: red,
+      黄鶴楼送孟浩然之廣陵,
     ),
   ),
 )
