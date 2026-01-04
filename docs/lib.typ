@@ -20,6 +20,7 @@
   author: none,
   title: none,
   subtitle: none,
+  font-monospace: ("Noto Sans Mono", "Noto Sans CJK JP"),
   body,
 ) = {
   set document(title: title)
@@ -34,7 +35,7 @@
     justify: true,
   )
 
-  show raw: set text(font: ("Fira Code", "Noto Sans Mono CJK JP"), size: 1em)
+  show raw: set text(font: font-monospace, size: 1em)
   show raw.where(block: false): set text(size: 1em)
   show raw.where(block: true): block.with(
     fill: luma(240),
