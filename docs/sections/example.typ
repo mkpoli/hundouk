@@ -213,6 +213,48 @@
   ),
 )
 
+== 文字サイズ
+
+#let 早発白帝城 = "朝ニ辭ス[二]白帝彩雲間ヲ[一]
+  千里江陵一日ニシテ還ル
+  兩岸猿聲啼イテ不[レ]住(や)マザルニ
+  輕舟已ニ過グ[二]萬重山ヲ[一]"
+
+#show-compare(
+  shared-caption: "〔唐〕李白《早発白帝城》",
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  ruby-size: 0.5em, // デフォルト\n  okurigana-size: 0.5em, // デフォルト\n  tight: false, \n  \""
+        + 早発白帝城
+        + "\"\n)",
+    ),
+    kanbun(
+      ruby-size: 0.5em,
+      okurigana-size: 0.5em,
+      tight: false,
+      早発白帝城,
+    ),
+  ),
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  ruby-size: 0.35em, // 小さめ\n  okurigana-size: 0.35em, // 小さめ\n  tight: false,\n  \""
+        + 早発白帝城
+        + "\"\n)",
+    ),
+    kanbun(
+      ruby-size: 0.35em,
+      okurigana-size: 0.35em,
+      tight: false,
+      早発白帝城,
+    ),
+  ),
+)
+
+
 == 字間・行間・改行
 
 #show-simple(
