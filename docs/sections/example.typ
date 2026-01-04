@@ -284,6 +284,41 @@
   ),
 )
 
+行間や字間を調整する例です。
+
+#import "../texts/poems.typ": 春望
+#show-compare(
+  shared-caption: "〔唐〕杜甫《春望》",
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  char-spacing: 0.05em, // デフォルト\n  line-spacing: auto, // デフォルト\n  \""
+        + 春望
+        + "\"\n)",
+    ),
+    kanbun(
+      char-spacing: 0.05em,
+      line-spacing: auto,
+      春望,
+    ),
+  ),
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  char-spacing: 0.5em, // 字間を広げる\n  line-spacing: 1em, // 行間を広げる\n  \""
+        + 春望
+        + "\"\n)",
+    ),
+    kanbun(
+      char-spacing: 0.5em,
+      line-spacing: 1em,
+      春望,
+    ),
+  ),
+)
+
 
 == ルビの縦方向位置
 
@@ -424,6 +459,7 @@
 )
 
 `color-hypen`オプションでハイフンの色を変更できます。
+
 #import "../texts/poems.typ": 黄鶴楼送孟浩然之廣陵
 #show-compare(
   shared-caption: "〔唐〕李白《黄鶴楼送孟浩然之広陵》",
@@ -449,6 +485,72 @@
     kanbun(
       color-hypen: red,
       黄鶴楼送孟浩然之廣陵,
+    ),
+  ),
+)
+
+`hang-kaeriten-on-connector`オプションで、ハイフンに返り点をぶら下げるかどうかを制御できます。
+
+#show-compare(
+  shared-caption: "〔唐〕李白《黄鶴楼送孟浩然之広陵》より",
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  hang-kaeriten-on-connector: true, // デフォルト\n  \""
+        + 黄鶴楼送孟浩然之廣陵
+        + "\"\n)",
+    ),
+    kanbun(
+      hang-kaeriten-on-connector: true,
+      黄鶴楼送孟浩然之廣陵,
+    ),
+  ),
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  hang-kaeriten-on-connector: false, // ぶら下げない\n  \""
+        + 黄鶴楼送孟浩然之廣陵
+        + "\"\n)",
+    ),
+    kanbun(
+      hang-kaeriten-on-connector: false,
+      黄鶴楼送孟浩然之廣陵,
+    ),
+  ),
+)
+
+== 句読点の位置
+
+`punctuation-offset`オプションで、句読点の位置を微調整できます。`(dx: length, dy: length)`の辞書を指定します。
+
+#show-compare(
+  shared-caption: "〔唐〕杜甫《春望》より",
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  punctuation-offset: (dx: -0.5em, dy: 0.2em), // デフォルト\n  \""
+        + 春望
+        + "\"\n)",
+    ),
+    kanbun(
+      punctuation-offset: (dx: -0.5em, dy: 0.2em),
+      春望,
+    ),
+  ),
+  (
+    raw(
+      block: true,
+      lang: "typ",
+      "#import \"{import-path}\": kanbun\n#kanbun(\n  punctuation-offset: (dx: -0.2em, dy: 0em), // 調整\n  \""
+        + 春望
+        + "\"\n)",
+    ),
+    kanbun(
+      punctuation-offset: (dx: -0.2em, dy: 0em),
+      春望,
     ),
   ),
 )
