@@ -334,3 +334,40 @@
   }
   nodes
 }
+
+/// ノードツリーを漢文テキスト形式にシリアライズ
+///
+/// - nodes (array): 漢文ノードリスト
+/// -> string
+#let serialize-kanbun(nodes) = {
+  if nodes == none { return "" }
+  let res = ""
+  for node in nodes {
+    if node.type == "newline" {
+      res += "\n"
+    } else if node.type == "punctuation" or node.type == "quotation" {
+      res += node.surface
+    } else if node.type == "connector" {
+      res += "="
+    } else if node.type == "character" {
+      res += node.surface
+      if node.at("reading", default: none) != none {
+        res += "（" + node.reading + "）"
+      }
+      if node.at("left-ruby", default: none) != none {
+        res += "‹" + node.left-ruby + "›"
+      }
+      if node.at("okurigana", default: none) != none {
+        res += node.okurigana
+      }
+      if node.at("left-okurigana", default: none) != none {
+        res += "«" + node.left-okurigana + "»"
+      }
+      if node.at("kaeriten", default: none) != none {
+        res += "[" + node.kaeriten + "]"
+      }
+    }
+  }
+  res
+}
+
