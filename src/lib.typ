@@ -20,6 +20,8 @@
 /// - use-unicode-kanbun (bool): trueの場合はUnicode漢文記号を使用、falseの場合はフォント互換性のため標準的な文字を使用
 /// - ruby-vertical-offset (length): 読みがな（ルビー）の縦方向の位置調整 (縦書き時のフォントパディング補正用)
 /// - kaeriten-offset (length): 返り点の水平方向の位置調整 (デフォルトは0pt, 0.25em~0.5em推奨)
+/// - okurigana-x-offset (length): 送り仮名の水平方向の位置調整 (デフォルトは0pt, 0.25em推奨)
+/// - okurigana-y-offset (length): 送り仮名の垂直方向の位置調整 (デフォルトは0pt, 0.25em推奨)
 /// - nodes (list): 漢文のノードリスト
 /// ->
 #let render-kanbun(
@@ -34,6 +36,8 @@
   ruby-okurigana-gutter: 0.05em,
   ruby-vertical-offset: 0.05em,
   kaeriten-offset: 0pt,
+  okurigana-x-offset: 0pt,
+  okurigana-y-offset: 0pt,
   hang-kaeriten-on-connector: true,
   max-chars-for-kaeriten-hanging-on-hyphen: none,
   height: auto,
@@ -276,7 +280,11 @@
             }
           } else { none }
           let okurigana-content = if okurigana != none {
-            format-annotation(okurigana, okurigana-size, okurigana-tracking)
+            move(
+              dx: okurigana-x-offset,
+              dy: okurigana-y-offset,
+              format-annotation(okurigana, okurigana-size, okurigana-tracking),
+            )
           } else { none }
           let left-okurigana-content = if left-okurigana != none {
             format-annotation(left-okurigana, okurigana-size, okurigana-tracking)
@@ -648,7 +656,11 @@
           }
         } else { none }
         let oc = if merged-okurigana != none {
-          format-annotation(merged-okurigana, okurigana-size, okurigana-tracking)
+          move(
+            dx: okurigana-x-offset,
+            dy: okurigana-y-offset,
+            format-annotation(merged-okurigana, okurigana-size, okurigana-tracking),
+          )
         } else { none }
 
         let merged-content = stack(
@@ -778,7 +790,11 @@
     } else { none }
 
     let okurigana-content = if okurigana != none {
-      format-annotation(okurigana, okurigana-size, okurigana-tracking)
+      move(
+        dx: okurigana-x-offset,
+        dy: okurigana-y-offset,
+        format-annotation(okurigana, okurigana-size, okurigana-tracking),
+      )
     } else { none }
 
     let left-okurigana-content = if left-okurigana != none {
@@ -1084,6 +1100,8 @@
 /// - line-spacing (length): 行間
 /// - use-unicode-kanbun (bool): trueの場合はUnicode漢文記号を使用、falseの場合はフォント互換性のため標準的な文字を使用
 /// - kaeriten-offset (length): 返り点の水平方向の位置調整 (デフォルトは0pt, 推奨は-0.5em)
+/// - okurigana-x-offset (length): 送り仮名の水平方向の位置調整 (デフォルトは0pt, 0.25em推奨)
+/// - okurigana-y-offset (length): 送り仮名の垂直方向の位置調整 (デフォルトは0pt, 0.25em推奨)
 /// - ruby-vertical-offset (length): 読みがな（ルビー）の縦方向の位置調整 (縦書き時のフォントパディング補正用)
 /// - body (string, content): 漢文の文字列またはコンテンツノードリスト
 /// ->
