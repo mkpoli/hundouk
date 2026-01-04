@@ -6,55 +6,48 @@
 
 次の実装の通り、`hundouk`パッケージを利用することで、プレーンテキスト形式の軽量なアノテーションを付与された漢文を@fig1 のように組版できます。
 
-```typ
-#import "{import-path}": kanbun
+#let 送元二使安西 = "
+  渭城ノ朝雨浥(うるお)シ[二]輕塵ヲ[一]
+  客舍青青柳色新タナリ
+  勸ム[レ]君ニ更ニ盡セ一杯ノ酒
+  西ノカタ出ヅレバ[二]陽關ヲ[一]無[二]カラン故人[一]".trim()
 
-#kanbun(
-  tight: false, // アキ組
-  "月落チ烏啼キテ霜満ツ[レ]天ニ，
-  江楓漁火対ス[二]愁眠ニ[一]。
-  姑(こ)蘇(そ)城外ノ寒山寺，
-  夜半ノ鐘声到ル[二]客船ニ[一]。"
+#raw(
+  block: true,
+  lang: "typ",
+  "#import \"{import-path}\": kanbun\n\n#kanbun(\n  tight: false, // アキ組\n  \"" + 送元二使安西 + "\"\n)",
 )
-```
 
 #figure(
-  caption: "レンダリングされた漢文",
+  kind: "example",
+  supplement: [例],
+  caption: [〔唐〕王維《送元二使安西》],
   gap: 1em,
   kanbun(
     tight: false,
-    "月落チ烏啼キテ霜満ツ[レ]天ニ，
-    江楓漁火対ス[二]愁眠ニ[一]。
-    姑(こ)蘇(そ)城外ノ寒山寺，
-    夜半ノ鐘声到ル[二]客船ニ[一]。",
+    送元二使安西,
   ),
 )<fig1>
 
+
 `kanbun()`に`debug: true`と付ければ、色付きで構造が表示されます。
 
-```typ
-#import "{import-path}": kanbun
-
-#kanbun(
-  tight: false, // アキ組
-  debug: true, // デバッグ色表示
-  "月落チ烏啼キテ霜満ツ[レ]天ニ，
-  江楓漁火対ス[二]愁眠ニ[一]。
-  姑(こ)蘇(そ)城外ノ寒山寺，
-  夜半ノ鐘声到ル[二]客船ニ[一]。"
+#raw(
+  block: true,
+  lang: "typ",
+  "#import \"{import-path}\": kanbun\n\n#kanbun(\n  tight: false, // アキ組\n  debug: true, // デバッグ色表示\n  \""
+    + 送元二使安西
+    + "\"\n)",
 )
-```
-
 #figure(
+  kind: "example",
+  supplement: [例],
   caption: "漢文組版の構造",
   gap: 1em,
   kanbun(
     tight: false,
     debug: true,
-    "月落チ烏啼キテ霜満ツ[レ]天ニ，
-    江楓漁火対ス[二]愁眠ニ[一]。
-    姑(こ)蘇(そ)城外ノ寒山寺，
-    夜半ノ鐘声到ル[二]客船ニ[一]。",
+    送元二使安西,
   ),
 )
 
