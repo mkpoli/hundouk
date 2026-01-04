@@ -892,18 +892,18 @@
           rgb("#ff8aed47")
         },
         if should-merge-right {
-          set text(size: ruby-size)
-          let children = ()
-          if reading != none {
-            children += reading.clusters()
-          }
-          if okurigana != none {
-            children += okurigana.clusters()
-          }
+          // Use component specific formatting
+          let reading-content = if reading != none {
+            format-annotation(reading, ruby-size, ruby-tracking)
+          } else { none }
+          let okurigana-content = if okurigana != none {
+            format-annotation(okurigana, okurigana-size, okurigana-tracking)
+          } else { none }
+
           stack(
             dir: writing-direction,
-            spacing: ruby-tracking,
-            ..children,
+            spacing: okurigana-tracking, // Transition spacing
+            ..(reading-content, okurigana-content).filter(x => x != none),
           )
         } else {
           reading-content
