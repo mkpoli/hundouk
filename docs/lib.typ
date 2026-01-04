@@ -26,6 +26,14 @@
 
   set text(lang: "ja")
 
+  set par(
+    first-line-indent: (
+      all: true,
+      amount: 1em,
+    ),
+    justify: true,
+  )
+
   show raw: set text(font: ("Fira Code", "Noto Sans Mono CJK JP"), size: 1em)
   show raw.where(block: false): set text(size: 1em)
   show raw.where(block: true): block.with(
