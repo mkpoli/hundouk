@@ -64,7 +64,11 @@
 
 // #group-nodes(parse-kanbun(subtitle-text))
 = 概要 / Overview
-このパッケージは漢文の疑似縦書き訓点等付きレンダリングを行うためのライブラリです。主にunt氏（\@UntPhesoca）のkanbunHTML及び陳元鎬（\@Nyoeghau）氏のLaTeX用`kanbun`パッケージから着想を得て制作されたものです。
+このパッケージはTypstを利用して、漢文の訓点文を疑似縦書きでレンダリングを行うためのライブラリです。
+
+具体的には、与えられたピュアテキストに特定なフォーマットで書かれた訓点情報付きの漢文テキストをパースし、得られた構造化漢文データを`grid`や`stack`などを用いることで擬似的に漢文をレンダリングするためのパッケージです。
+
+これは、主にunt氏（\@UntPhesoca）のkanbunHTML及び陳元鎬（\@Nyoeghau）氏のLaTeX用`kanbun`パッケージから着想を得て制作されたものです。
 
 = 使い方の例 / Usage Examples
 #include "./sections/example.typ"
