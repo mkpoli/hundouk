@@ -1,11 +1,12 @@
-#import "../../src/lib.typ": kanbun, hakubun, yomikudasi
+#import "../../src/lib.typ": hakubun, kanbun, yomikudasi
 
 #let show-simple(code, result) = {
   set align(center)
   grid(
     row-gutter: 1em,
     inset: 0.5em,
-    code, result
+    code,
+    result,
   )
 }
 

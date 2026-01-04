@@ -1,6 +1,6 @@
 #import "@preview/tidy:0.4.3"
 
-#import "../src/lib.typ": render-kanbun, parse-wenyan, kanbun, group-nodes, parse-kanbun
+#import "../src/lib.typ": group-nodes, kanbun, parse-kanbun, parse-wenyan, render-kanbun
 
 #import "./lib.typ": doc, ruby
 #let 大學章句 = read("./texts/latsgruk.txt")
