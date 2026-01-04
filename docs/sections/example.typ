@@ -257,26 +257,33 @@
 
 == 字間・行間・改行
 
+`ruby-tracking`と`okurigana-tracking`はデフォルトで`auto`となっており、縦組（TTB）の場合は`0.1em`、横組（LTR）の場合は`0.01em`に自動設定されます。
 #show-simple(
   ```typ
   #import "{import-path}": kanbun
 
   #kanbun(
-    ruby-gutter: 1em,
-    annotation-gutter: 1em,
-    writing-direction: ttb,
-    "學ビテ而不[㆑]厭ハ、誨ヘテ[㆑]人ヲ不[㆑]倦マ",
+    ruby-gutter: 0.5em,
+    ruby-tracking: 0.5em,
+    okurigana-tracking: 0.5em,
+    annotation-gutter: 0.5em,
+
+    height: 8em,
+    "學ビテ而不[㆑]厭ハ
+    誨ヘテ[㆑]人ヲ不[㆑]倦マ",
   )
   ```,
   kanbun(
-    ruby-gutter: 1em,
-    annotation-gutter: 1em,
-    writing-direction: ttb,
-    "學ビテ而不[㆑]厭ハ、誨ヘテ[㆑]人ヲ不[㆑]倦マ",
+    ruby-gutter: 0.5em,
+    ruby-tracking: 0.5em,
+    okurigana-tracking: 0.5em,
+    annotation-gutter: 0.5em,
+    height: 8em,
+    "學ビテ而不[㆑]厭ハ
+    誨ヘテ[㆑]人ヲ不[㆑]倦マ",
   ),
 )
 
-`ruby-tracking`と`okurigana-tracking`はデフォルトで`auto`となっており、縦組（TTB）の場合は`0.1em`、横組（LTR）の場合は`0.01em`に自動設定されます。
 
 == 竪線（縦棒・ハイフン）
 
