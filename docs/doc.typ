@@ -47,7 +47,8 @@
 #let subtitle-text = "以テ[二]牒(てふ)=悉(しつ)‹Typst›ヲ[一]點ジ[二]漢(かん)=文(ぶん)ニ[一]。爲スノ[二]訓(くん)=讀(どく)‹hundouk›[一]ヲ之器(うつわ)‹ツール›也。"
 
 #show: doc.with(
-  title: [#package-info.name v#package-info.version],
+  title: [
+    #v(1fr)#package-info.name v#package-info.version],
   subtitle: [
     #kanbun(
       // debug: true,A
@@ -59,8 +60,9 @@
   author: [#ruby[mkpoli][まくぽり]],
 )
 
-
 #show "{import-path}": "@preview/" + package-info.name + ":" + package-info.version
+
+#v(1fr)
 
 // #group-nodes(parse-kanbun(subtitle-text))
 = 概要 / Overview
@@ -69,6 +71,8 @@
 具体的には、与えられたピュアテキストに特定なフォーマットで書かれた訓点情報付きの漢文テキストをパースし、得られた構造化漢文データを`grid`や`stack`などを用いることで擬似的に漢文をレンダリングするためのパッケージです。
 
 これは、主にunt氏（\@UntPhesoca）のkanbunHTML及び陳元鎬（\@Nyoeghau）氏のLaTeX用`kanbun`パッケージから着想を得て制作されたものです。
+
+#pagebreak()
 
 = 使い方の例 / Usage Examples
 #include "./sections/example.typ"
