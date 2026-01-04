@@ -19,6 +19,7 @@
 /// - debug (bool): trueの場合はデバッグ用の色を表示
 /// - use-unicode-kanbun (bool): trueの場合はUnicode漢文記号を使用、falseの場合はフォント互換性のため標準的な文字を使用
 /// - ruby-vertical-offset (length): 読みがな（ルビー）の縦方向の位置調整 (縦書き時のフォントパディング補正用)
+/// - kaeriten-offset (length): 返り点の水平方向の位置調整 (デフォルトは0pt, 0.25em~0.5em推奨)
 /// - nodes (list): 漢文のノードリスト
 /// ->
 #let render-kanbun(
@@ -32,6 +33,7 @@
   annotation-gutter: 0em,
   ruby-okurigana-gutter: 0.05em,
   ruby-vertical-offset: 0.05em,
+  kaeriten-offset: 0pt,
   hang-kaeriten-on-connector: true,
   max-chars-for-kaeriten-hanging-on-hyphen: none,
   height: auto,
@@ -280,7 +282,7 @@
             format-annotation(left-okurigana, okurigana-size, okurigana-tracking)
           } else { none }
           let kaeriten-content = if kaeriten-for-this != none {
-            text(size: 0.5em)[#format-kaeriten(kaeriten-for-this)]
+            move(dx: kaeriten-offset, text(size: 0.5em)[#format-kaeriten(kaeriten-for-this)])
           } else { none }
           let left-ruby-content = if left-ruby != none {
             format-annotation(left-ruby, ruby-size, ruby-tracking)
@@ -540,7 +542,7 @@
 
           let extra-content = if extra-content-list.len() > 0 {
             let merged-k = extra-content-list.join("")
-            text(size: 0.5em)[#format-kaeriten(merged-k)]
+            move(dx: kaeriten-offset, text(size: 0.5em)[#format-kaeriten(merged-k)])
           } else { none }
 
           let h = if tight { 0.5em } else { 1em }
@@ -784,7 +786,7 @@
     } else { none }
 
     let kaeriten-content = if kaeriten != none {
-      text(size: 0.5em)[#format-kaeriten(kaeriten)]
+      move(dx: kaeriten-offset, text(size: 0.5em)[#format-kaeriten(kaeriten)])
     } else { none }
 
     let left-ruby-content = if left-ruby != none {
@@ -1077,11 +1079,11 @@
 /// - okurigana-size (length): 送り仮名の大きさ（フォントサイズ）
 /// - ruby-gutter (length): 読みがな（ルビー）と親文字の間隔
 /// - annotation-gutter (length): 注釈（送り仮名、返り点）と親文字の間隔
-/// - annotation-gutter (length): 注釈（送り仮名、返り点）と親文字の間隔
 /// - hang-kaeriten-on-connector (bool): 接続符（ハイフン）に返り点をぶら下げるかどうか
 /// - max-chars-for-kaeriten-hanging-on-hyphen (int): 接続符（ハイフン）に返り点をぶら下げる際の文字数制限（指定した文字数より多い場合はぶら下げない）
 /// - line-spacing (length): 行間
 /// - use-unicode-kanbun (bool): trueの場合はUnicode漢文記号を使用、falseの場合はフォント互換性のため標準的な文字を使用
+/// - kaeriten-offset (length): 返り点の水平方向の位置調整 (デフォルトは0pt, 推奨は-0.5em)
 /// - ruby-vertical-offset (length): 読みがな（ルビー）の縦方向の位置調整 (縦書き時のフォントパディング補正用)
 /// - body (string, content): 漢文の文字列またはコンテンツノードリスト
 /// ->
