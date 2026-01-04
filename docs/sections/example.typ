@@ -3,7 +3,7 @@
 #import "../utils/display.typ": show-compare, show-simple
 #set text(font: "Noto Serif CJK JP")
 
-== 簡単な実例
+== 簡単な実例 / Simple Examples
 
 次の実装の通り、`hundouk`パッケージを利用することで、プレーンテキスト形式の軽量なアノテーションを付与された漢文を@fig1 のように組版できます。
 
@@ -52,7 +52,7 @@
   ),
 )
 
-== アキ組とベタ組
+== アキ組とベタ組 / Tight vs. Non-tight
 
 漢文の試験問題や漢詩、古典籍などでは、漢字や訓点全体が1つづつ等しいサイズのボックスのグリッドのようにレンダリングされることが多く、これを*アキ組*と呼びます。これと対照的に、訓点の有無によって動的に1つのブロックのサイズを調整するレイアウトを、*ベタ組*と呼びます。
 
@@ -101,7 +101,7 @@
 )
 
 
-== 縦組と横書
+== 縦組と横書 / Vertical vs. Horizontal
 現時点（Typst `v0.14`）においては、まだ公式に縦組モード（CSSで言う`writing-model: vertical-lr`）がサポートされておらず、そのため、`grid`や`stack`などを用いた擬似的な縦組しかできないため、本パッケージもこのように実装しました。縦組自体がサポートされていないため、本パッケージは現時点では横書きの文章の中で図のように漢文を組版するためのものです。
 
 #grid(
@@ -153,7 +153,7 @@
   ),
 )
 
-== 返点と送り仮名の位置
+== 返点と送り仮名の位置 / Annotation Offsets
 
 `kaeriten-offset`オプションを使用することで、返り点の位置をずらすこともできます.
 
@@ -213,7 +213,7 @@
   ),
 )
 
-== 文字サイズ
+== 文字サイズ / Font Size
 
 #let 早発白帝城 = "朝ニ辭ス[二]白帝彩雲間ヲ[一]
   千里江陵一日ニシテ還ル
@@ -255,7 +255,7 @@
 )
 
 
-== 字間・行間・改行
+== 字間・行間・改行 / Spacing
 
 `ruby-tracking`と`okurigana-tracking`はデフォルトで`auto`となっており、縦組（TTB）の場合は`0.1em`、横組（LTR）の場合は`0.01em`に自動設定されます。
 #show-simple(
@@ -320,7 +320,7 @@
 )
 
 
-== ルビの縦方向位置
+== ルビの縦方向位置 / Ruby Vertical Offset
 
 `ruby-vertical-offset`オプションで、縦書き時のルビの縦方向の位置を微調整できます。フォントによってはルビが親文字に近すぎたり遠すぎたりする場合に有効です。
 #import "../texts/poems.typ": 黄鶴楼
@@ -354,7 +354,7 @@
   ),
 )
 
-== Unicode漢文記号
+== Unicode漢文記号 / Unicode Kanbun
 
 `use-unicode-kanbun`オプションを`true`（デフォルト）にすると、Unicodeの漢文記号（Kanbun Block, U+3190..U+319F）を使用します。`false`にすると、互換性のために通常の文字（`[一]`など）で近似してレンダリングします。`false`の場合はフォントが漢文記号を持っていなくても表示できる場合がありますが、見た目は異なります。
 #import "../texts/poems.typ": 江雪
@@ -386,7 +386,7 @@
   ),
 )
 
-== 竪線（縦棒・ハイフン）
+== 竪線（ハイフン） / Hyphenation
 
 「`=`」（`U+003D` `EQUALS SIGN`、半角等号）または「`―`」（`U+2015` `HORIZONTAL BAR`、横棒）を漢字グループの間に置くことで、漢字同士を#ruby-tight[たてせん][竪線]（または#ruby-tight[たてぼう][縦棒]・#ruby-tight[hyphen][ハイフン]とも言う）で結ぶことができます。縦組では、以下のように返点がハイフンの横につく。
 
@@ -521,7 +521,7 @@
   ),
 )
 
-== 句読点の位置
+== 句読点の位置 / Punctuation Offset
 
 `punctuation-offset`オプションで、句読点の位置を微調整できます。`(dx: length, dy: length)`の辞書を指定します。
 
@@ -555,7 +555,7 @@
   ),
 )
 
-== 左ルビ
+== 左ルビ / Left Ruby
 
 #figure(
   caption: "Merged Left Ruby Test",
@@ -572,39 +572,7 @@ Left Side Attachments (parse-kanbun):
 #render-kanbun(parse-kanbun("漢‹かん›«な»字[レ]"))
 #render-kanbun(writing-direction: ltr, parse-kanbun("漢‹かん›«な»字[レ]"))
 
-// #paragraphs
-
-
-// #let ruby-scale = 0.5
-
-
-// #let color-connector = orange
-
-// #let connector = grid.cell(inset: (y: -0.2em), move(dx: 0.4em, rotate(90deg, text(fill: color-connector)[-])))
-
-// #grid(
-//   columns: 3,
-//   grid(
-
-//   ),
-//   grid(
-//     gutter: 0.2em,
-//     "山",
-//     connector,
-//     "火",
-//     "者"
-//   ),
-//   [
-//     #set text(size: ruby-scale * 1em)
-//     #grid(
-//       "や",
-//       "ま",
-//       "び",
-//       gutter: 0.2em,
-//     )
-//   ],
-// )
-//
+== その他の例 / Other Examples
 
 #import "../utils/display.typ": show-example
 
@@ -620,7 +588,3 @@ Left Side Attachments (parse-kanbun):
 
 
 #show-example("其ノ人弗ル能ハ應フル也。")
-
-
-
-
