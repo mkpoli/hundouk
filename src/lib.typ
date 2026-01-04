@@ -192,6 +192,7 @@
         merged-reading = last-char-reading
       }
 
+      let merged-okurigana = none
       // TTB: Merge Okurigana into the Merged Reading string
       if merged-reading != none and writing-direction == ttb {
         let okuri-parts = ()
@@ -203,12 +204,7 @@
         }
         let full-okuri = okuri-parts.join("")
         if full-okuri != "" {
-          if type(merged-reading) == str {
-            merged-reading += full-okuri
-          } else {
-            // Fallback for content
-            merged-reading = [#merged-reading#full-okuri]
-          }
+          merged-okurigana = full-okuri
         }
       }
 
@@ -631,8 +627,22 @@
 
 
       // Merged Readings and Left Ruby
-      if merged-reading != none {
-        let rc = format-annotation(merged-reading, ruby-size, ruby-tracking)
+      if merged-reading != none or merged-okurigana != none {
+        let rc = if merged-reading != none {
+          format-annotation(merged-reading, ruby-size, ruby-tracking)
+        } else { none }
+        let oc = if merged-okurigana != none {
+          format-annotation(merged-okurigana, okurigana-size, okurigana-tracking)
+        } else { none }
+
+        let merged-content = stack(
+          dir: writing-direction,
+          spacing: okurigana-tracking,
+          ..(rc, oc).filter(x => x != none),
+        )
+        // Note: For connected-group, layout is simple expansion.
+        // We use the stack to hold ruby + okurigana.
+
         if writing-direction == ttb {
           grid-cells.push(
             grid.cell(
@@ -641,7 +651,7 @@
               rowspan: current-track-idx,
               align: left + horizon,
               fill: if debug { rgb("#ff8aed47") } else { none },
-              rc,
+              merged-content,
             ),
           )
         } else {
@@ -652,7 +662,7 @@
               colspan: current-track-idx - extra-ltr-tracks,
               align: center + bottom,
               fill: if debug { rgb("#ff8aed47") } else { none },
-              rc,
+              merged-content,
             ),
           )
         }
