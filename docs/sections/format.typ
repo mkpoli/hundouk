@@ -58,3 +58,25 @@ Connector  ::= "‐" (Kaeriten)?
 - *Kaeriten (返り点)*: `［＃...］` で記述します（例: `［＃レ］`）。
 - *Connector (竪点)*: `‐` (U+2010 HYPHEN) で記述します。
 
+== Yhëhtozr形式 / Wenyan Format
+
+Yhëhtozr体（`wenyan-book-ja`）で使用される形式もサポートしています。
+
+```bnf
+WenyanText ::= (Element)*
+Element    ::= Character | Connector | Punctuation | Newline
+Character  ::= Surface (Ruby)? (Okurigana)? (Kaeriten)? (LeftRuby)?
+Surface    ::= <Any unicode character>
+Ruby       ::= "（" <Text> "）" | <Hiragana>+
+Okurigana  ::= <Katakana>+
+Kaeriten   ::= <Digit>
+LeftRuby   ::= "〔" <Text> "〕"
+Connector  ::= "="
+```
+
+- *Ruby (ルビ)*: `（...）` または直後のひらがな・長音符で記述します。
+- *Okurigana (送り仮名)*: 直後のカタカナ・長音符で記述します。
+- *Kaeriten (返り点)*: 直後の数字で記述します（`0`=レ, `1`=一, `2`=二...）。
+- *LeftRuby (左ルビ/傍注)*: `〔...〕` で記述します。
+
+

@@ -1,6 +1,8 @@
 
 #import "../utils/display.typ": show-simple
-#import "../../src/lib.typ": hakubun, parse-aozora, parse-kanbun, render-kanbun, serialize-kanbun, yomikudasi
+#import "../../src/lib.typ": (
+  hakubun, parse-aozora, parse-kanbun, parse-wenyan, render-kanbun, serialize-kanbun, yomikudasi,
+)
 = その他の機能 / Other Features
 
 == 白文抽出 / Raw Text Extraction
@@ -84,6 +86,25 @@
   ```,
   render-kanbun(
     parse-aozora("自［＃二］女王國［＃一］東度［＃レ］海千餘里。"),
+  ),
+)
+
+== Yhëhtozr形式のパース / Parsing Wenyan Format
+
+Yhëhtozr体（`wenyan-book-ja`）形式のテキストをパースしてレンダリングできます。
+
+#show-simple(
+  ```typ
+  #import "{import-path}": parse-wenyan, render-kanbun
+
+  #render-kanbun(
+    parse-wenyan("子曰（いわ）ク、学（まな）ビテ時（とき）ニ習（なラ）フ=之（これ）ヲ、亦悦（よろこ）バシカラズ=乎（や）0。")
+  )
+  ```,
+  render-kanbun(
+    parse-wenyan(
+      "子曰（いわ）ク、学（まな）ビテ時（とき）ニ習（なラ）フ=之（これ）ヲ、亦悦（よろこ）バシカラズ=乎（や）0。",
+    ),
   ),
 )
 
