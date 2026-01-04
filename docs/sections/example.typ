@@ -289,8 +289,8 @@
 
 「`=`」（`U+003D` `EQUALS SIGN`、半角等号）または「`―`」（`U+2015` `HORIZONTAL BAR`、横棒）を漢字グループの間に置くことで、漢字同士を#ruby-tight[たてせん][竪線]（または#ruby-tight[たてぼう][縦棒]・#ruby-tight[hyphen][ハイフン]とも言う）で結ぶことができます。縦組では、以下のように返点がハイフンの横につく。
 
-#kanbun(debug: true, writing-direction: ltr, "發(た)[二]ツ大=和ニ(やまと)[一]")
-#kanbun(debug: true, "發(た)[二]ツ大=和ニ(やまと)[一]")
+// #kanbun(debug: true, writing-direction: ltr, "發(た)[二]ツ大=和ニ(やまと)[一]")
+// #kanbun(debug: true, "發(た)[二]ツ大=和ニ(やまと)[一]")
 #show-compare(
   (
     ```typ
@@ -334,7 +334,7 @@
     )
     ```,
     kanbun(
-      debug: true,
+      // debug: true,
       writing-direction: ttb,
       "自(よ)[二]リ東(とう)=京(きやう)=都(と)[一]。",
     ),
@@ -349,7 +349,7 @@
     )
     ```,
     kanbun(
-      debug: true,
+      // debug: true,
       writing-direction: ttb,
       max-chars-for-kaeriten-hanging-on-hyphen: 2,
       "自(よ)[二]リ東(とう)=京(きやう)=都(と)[一]。",
