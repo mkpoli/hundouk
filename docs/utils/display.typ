@@ -10,15 +10,29 @@
 }
 
 
-#let show-compare((code-a, result-a), (code-b, result-b)) = {
+#let show-compare((code-a, result-a), (code-b, result-b), caption-a: none, caption-b: none, shared-caption: none) = {
   set align(center)
-  grid(
-    columns: 2,
-    column-gutter: 2em,
-    row-gutter: 1em,
-    inset: 0.5em,
-    code-a, code-b,
-    result-a, result-b,
+  figure(
+    kind: "example",
+    supplement: [例],
+    caption: shared-caption,
+    grid(
+      columns: 2,
+      column-gutter: 2em,
+      row-gutter: 1em,
+      inset: 0.5em,
+      code-a, code-b,
+      figure(
+        caption: caption-a,
+        gap: 1em,
+        result-a,
+      ),
+      figure(
+        caption: caption-b,
+        gap: 1em,
+        result-b,
+      ),
+    ),
   )
 }
 
