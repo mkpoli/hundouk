@@ -1,6 +1,6 @@
 
 #import "../utils/display.typ": show-simple
-#import "../../src/lib.typ": hakubun, parse-kanbun, serialize-kanbun, yomikudasi
+#import "../../src/lib.typ": hakubun, parse-aozora, parse-kanbun, render-kanbun, serialize-kanbun, yomikudasi
 = その他の機能 / Other Features
 
 == 白文抽出 / Raw Text Extraction
@@ -54,3 +54,36 @@
     ]
   },
 )
+
+== 青空文庫形式のパース / Parsing Aozora Bunko
+
+青空文庫形式のテキストをパースしてレンダリングできます。
+
+#show-simple(
+  ```typ
+  #import "{import-path}": parse-aozora, render-kanbun
+
+  #render-kanbun(
+    parse-aozora("吾《われ》嘗《かつ》テ終《しゅう》日《じつ》不《ず》［＃レ］食《く》ラハ、終夜《しゅうや》不《ず》［＃レ］寝《い》ネ、以《もつ》テ思《おも》フ。")
+  )
+  ```,
+  render-kanbun(
+    parse-aozora(
+      "吾《われ》嘗《かつ》テ終《しゅう》日《じつ》不《ず》［＃レ］食《く》ラハ、終夜《しゅうや》不《ず》［＃レ］寝《い》ネ、以《もつ》テ思《おも》フ。",
+    ),
+  ),
+)
+
+#show-simple(
+  ```typ
+  #import "{import-path}": parse-aozora, render-kanbun
+  // 竪点（ハイフン）の使用例
+  #render-kanbun(
+    parse-aozora("自［＃二］女王國［＃一］東度［＃レ］海千餘里。")
+  )
+  ```,
+  render-kanbun(
+    parse-aozora("自［＃二］女王國［＃一］東度［＃レ］海千餘里。"),
+  ),
+)
+

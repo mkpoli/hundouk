@@ -35,3 +35,26 @@ Newline    ::= "\n"
 漢(かん)文(ぶん)ノ[レ]法
 ```
 -> 「漢」にルビ「かん」、「文」にルビ「ぶん」、「ノ」は送り仮名、返り点「レ」が「法」の前に付きます（実際には「法」の後に記述されますが、「ノ」の後、「法」の前という位置関係になります）。
+
+== 青空文庫形式 / Aozora Bunko Format
+
+青空文庫形式のテキストデータもパース可能です。このフォーマットは、ルビや注記をテキスト形式で表現するためのデファクトスタンダードの一つです。
+
+```bnf
+AozoraText ::= (Element)*
+Element    ::= Character | Connector | Punctuation | Newline
+Character  ::= Surface (Ruby)? (HiddenRuby)? (Okurigana)? (Kaeriten)?
+Surface    ::= <Any unicode character>
+Ruby       ::= "《" <Text> "》"
+HiddenRuby ::= "〈" <Text> "〉"
+Okurigana  ::= <Kana>+ | "［＃（" <Text> "）］"
+Kaeriten   ::= "［＃" <Text> "］"
+Connector  ::= "‐" (Kaeriten)?
+```
+
+- *Ruby (ルビ)*: `《...》` で記述します。
+- *HiddenRuby (非表示ルビ/再読)*: `〈...〉` で記述します。置き字の場合は空の `〈〉` を使用します。
+- *Okurigana (送り仮名)*: 漢字の直後にカタカナ・ひらがなを記述するか、`［＃（...）］` で記述します。
+- *Kaeriten (返り点)*: `［＃...］` で記述します（例: `［＃レ］`）。
+- *Connector (竪点)*: `‐` (U+2010 HYPHEN) で記述します。
+
