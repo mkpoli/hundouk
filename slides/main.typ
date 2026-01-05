@@ -165,6 +165,12 @@
 #let 登鸛雀樓 = "白日依リテ[レ]山ニ盡キ，黃河入リテ[レ]海ニ流ル。欲シ[二]窮メント[一]千里ノ目ヲ，更ニ上ル一層ノ樓。"
 #let 靜夜思 = "床前看[二]ル月光ヲ[一]，\n 疑ウラクハ[二]是レ地上ノ霜カト[一]。\n 舉[レ]ゲテ頭ヲ望ム[二]山月ヲ[一]，\n  低[レ]レテ頭ヲ思フ[二]故鄕ヲ[一]。"
 
+#let 春望 = "國破レテ山河在リ，\n城春ニシテ草木深シ。\n感ジテハ[レ]時ニ花ニモ濺(そそ)ギ[レ]泪ヲ，\n恨ミデハ[レ]別レヲ鳥ニモ驚カス[レ]心ヲ。\n烽火連ナリ[二]三月ニ[一]，家書抵ル[二]万金ニ[一]。\n白頭掻ケバ更ニ短ク，渾欲ッス[三]不[二]胜エザラ[一レ]簪ニ。"
+#let 黄鶴楼 = "昔人已ニ乗ジテ[二]白雲ニ[一]去リ，\n此ノ地空シク餘ス[二]黄鶴樓ヲ[一]。\n黄鶴一タビ去リテ不[二]復タ返ラ[一]ズ，\n白雲千載空シク悠悠。\n晴川歴歴タリ漢陽ノ樹，\n芳草萋萋タリ鸚鵡洲。\n日暮郷關何レノ處カ是(これ)ナル，\n煙波江上使ム[二]人ヲシテ愁ヘ[一]シム。"
+#let 江雪 = "千山鳥飛ビ絕エ，\n萬徑人蹤滅ス。\n孤舟簑(さ)笠(りふ)ノ翁，\n独リ釣ル[二]寒江ノ雪ヲ[一]。"
+#let 黄鶴楼送孟浩然之廣陵 = "故人西ノ方辭シ[二]黄=鶴=樓ヲ[一]，\n煙花三月下ル[二]揚=州ニ[一]。\n孤帆遠影碧空ニ盡キ，\n惟ダ見ル[二]長=江ノ天際ニ流ルルヲ[一]。"
+#let 早発白帝城 = "朝ニ辭ス[二]白帝彩雲間ヲ[一]\n千里江陵一日ニシテ還ル\n兩岸猿聲啼イテ不[レ]住(や)マザルニ\n輕舟已ニ過グ[二]萬重山ヲ[一]"
+
 #slide[
   #grid(
     columns: (1fr, 1fr),
@@ -254,6 +260,154 @@
 
 
 = 設計と実装 (How)
+
+#slide[
+  == 実際の例：春望
+
+  #figure(
+    caption: [〔唐〕杜甫『春望』],
+    kanbun(
+      height: 12em,
+      春望,
+      tight: false,
+      use-unicode-kanbun: false,
+    ),
+    kind: "example",
+    supplement: [例],
+  )
+]
+
+#slide[
+  == 実際の例：江雪 (Unicode / Legacy)
+
+  #grid(
+    columns: (1fr, 1fr),
+    gutter: 1em,
+    figure(
+      caption: "Unicode Kanbun",
+      kanbun(
+        height: 10em,
+        江雪,
+        tight: false,
+        use-unicode-kanbun: true,
+      ),
+      kind: "example",
+      supplement: [例],
+    ),
+    figure(
+      caption: "Legacy (ASCII)",
+      kanbun(
+        height: 10em,
+        江雪,
+        tight: false,
+        use-unicode-kanbun: false,
+      ),
+      kind: "example",
+      supplement: [例],
+    ),
+  )
+]
+
+#slide[
+  == 実際の例：黄鶴楼 (Ruby Vertical Offset)
+
+  #grid(
+    columns: (1fr, 1fr),
+    gutter: 1em,
+    figure(
+      caption: "Default Offset",
+      kanbun(
+        height: 12em,
+        黄鶴楼,
+        tight: false,
+        use-unicode-kanbun: false,
+        ruby-vertical-offset: 0.05em,
+      ),
+      kind: "example",
+      supplement: [例],
+    ),
+    figure(
+      caption: "Adjusted Offset (0.2em)",
+      kanbun(
+        height: 12em,
+        黄鶴楼,
+        tight: false,
+        use-unicode-kanbun: false,
+        ruby-vertical-offset: 0.2em,
+      ),
+      kind: "example",
+      supplement: [例],
+    ),
+  )
+]
+
+#slide[
+  == 実際の例：早発白帝城 (Font Size)
+
+  #grid(
+    columns: (1fr, 1fr),
+    gutter: 1em,
+    figure(
+      caption: "Default Size (0.5em)",
+      kanbun(
+        height: 10em,
+        早発白帝城,
+        tight: false,
+        use-unicode-kanbun: false,
+        ruby-size: 0.5em,
+        okurigana-size: 0.5em,
+      ),
+      kind: "example",
+      supplement: [例],
+    ),
+    figure(
+      caption: "Small Size (0.35em)",
+      kanbun(
+        height: 10em,
+        早発白帝城,
+        tight: false,
+        use-unicode-kanbun: false,
+        ruby-size: 0.35em,
+        okurigana-size: 0.35em,
+      ),
+      kind: "example",
+      supplement: [例],
+    ),
+  )
+]
+
+#slide[
+  == 実際の例：黄鶴楼送孟浩然之廣陵 (Hyphenation)
+
+  #grid(
+    columns: (1fr, 1fr),
+    gutter: 1em,
+    figure(
+      caption: "Hang on Connector: true",
+      kanbun(
+        height: 10em,
+        黄鶴楼送孟浩然之廣陵,
+        tight: false,
+        use-unicode-kanbun: false,
+        hang-kaeriten-on-connector: true,
+      ),
+      kind: "example",
+      supplement: [例],
+    ),
+    figure(
+      caption: "Hang on Connector: false",
+      kanbun(
+        height: 10em,
+        黄鶴楼送孟浩然之廣陵,
+        tight: false,
+        use-unicode-kanbun: false,
+        hang-kaeriten-on-connector: false,
+      ),
+      kind: "example",
+      supplement: [例],
+    ),
+  )
+]
 
 == hundoukとは？
 
