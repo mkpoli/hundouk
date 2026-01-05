@@ -31,6 +31,36 @@
     - https://github.com/yuanhao-chen-nyoeghau/kanbun
     - https://ctan.org/pkg/kanbun
 
+## Developments / 開発
+
+
+### フォント / Fonts
+
+以下のコマンドを実行することにより、必要なフォントをダウンロードすることができます。
+
+You can download the required fonts by running the following command:
+
+```
+wget -O fonts/PlanschriftP1-Regular.ttf https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Planschrift_Project/releases/download/V0.0.2007-pre/PlanschriftP1-Regular.ttf
+wget -O fonts/PlanschriftP2-Regular.ttf https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Planschrift_Project/releases/download/V0.0.2007-pre/PlanschriftP2-Regular.ttf
+wget -O fonts/HaranoAjiMincho-Regular.otf https://github.com/trueroad/HaranoAjiFonts/raw/refs/heads/master/HaranoAjiMincho-Regular.otf
+wget -O fonts/HaranoAjiMincho-Bold.otf https://github.com/trueroad/HaranoAjiFonts/raw/refs/heads/master/HaranoAjiMincho-Bold.otf
+wget -O fonts/HaranoAjiGothic-Regular.otf https://github.com/trueroad/HaranoAjiFonts/raw/refs/heads/master/HaranoAjiGothic-Regular.otf
+wget -O fonts/HaranoAjiGothic-Bold.otf https://github.com/trueroad/HaranoAjiFonts/raw/refs/heads/master/HaranoAjiGothic-Bold.otf
+```
+
+### ドキュメント / Document
+
+```sh
+typst compile docs/doc.typ --font-path fonts --root .
+```
+
+### スライド / Slides
+
+```sh
+typst compile slides/main.typ --font-path fonts --root .
+```
+
 ## License / ライセンス
 
 [MIT License](LICENSE) (c) 2025 mkpoli
