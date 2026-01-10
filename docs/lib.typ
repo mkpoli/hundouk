@@ -45,7 +45,7 @@
   show raw.where(block: true): it => align(center, it)
 
 
-  set text(font: "Noto Serif CJK JP", size: 10pt)
+  set text(font: "Harano Aji Mincho", size: 10pt)
 
   set heading(numbering: "1.1.")
   show heading: set block(spacing: 1em)
@@ -58,14 +58,14 @@
   }
 
   let title-block(body) = {
-    set text(font: "Noto Serif CJK JP", size: 2em)
+    set text(font: "Harano Aji Mincho", size: 2em)
     align(center, body)
   }
   title-block(title)
 
   let subtitle-block(body) = {
     block(spacing: 2em)[
-      #set text(font: "Noto Serif CJK JP", size: 1.25em)
+      #set text(font: "Harano Aji Mincho", size: 1.25em)
       #align(center, body)
     ]
   }
@@ -74,7 +74,7 @@
   }
 
   let author-block(body) = {
-    set text(font: "Noto Serif CJK JP", size: 1.25em)
+    set text(font: "Harano Aji Mincho", size: 1.25em)
     align(center, body)
   }
   author-block(author)

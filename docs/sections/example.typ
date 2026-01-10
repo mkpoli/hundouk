@@ -1,7 +1,7 @@
 #import "../lib.typ": ruby, ruby-tight
 #import "../../src/lib.typ": hakubun, kanbun, parse-kanbun, parse-wenyan, render-kanbun, serialize-kanbun, yomikudasi
 #import "../utils/display.typ": show-compare, show-simple
-#set text(font: "Noto Serif CJK JP")
+#set text(font: "Harano Aji Mincho")
 
 == 簡単な実例 / Simple Examples
 

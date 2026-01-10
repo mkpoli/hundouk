@@ -3,7 +3,7 @@
   width: 40em,
   height: auto,
 )
-#set text(font: "Noto Serif CJK JP", lang: "ja")
+#set text(font: "Harano Aji Mincho", lang: "ja")
 #show heading: set align(center)
 #show heading: set block(spacing: 3em)
 = 〔明〕陳第《毛詩古音考・序》

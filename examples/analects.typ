@@ -38,7 +38,7 @@
 
 子曰ク，不[二]患ヘ[一]ズ人之不[レ]知ラザルヲ[レ]己ヲ，患フ[二]不[レ]知ラザルヲ[一]人ヲ也。"
 
-#set text(font: "Noto Serif CJK JP")
+#set text(font: "Harano Aji Mincho")
 
 #let paragraphs = (
   學而
