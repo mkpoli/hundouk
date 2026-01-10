@@ -15,4 +15,4 @@ keywords = [
   "sinology",
   "literature",
 ]
-exclude = ["docs/*", "examples/*", "slides/*"]
+exclude = ["docs/*", "examples/*", "slides/*", "article/*", "fonts/*"]
