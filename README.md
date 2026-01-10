@@ -6,6 +6,8 @@
 
 ## Usage / 使い方
 
+Detailed usage and documentation can be seen in the released PDF manual in the [Release page](https://github.com/mkpoli/hundouk/releases).
+
 ```typst
 #import "@local/hundouk:0.1.0": kanbun
 

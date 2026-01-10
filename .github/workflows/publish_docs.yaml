@@ -1,0 +1,49 @@
+name: Publish Documentation
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v4
+        with:
+          typst-version: 0.12.0
+
+      - name: Download fonts
+        run: |
+          mkdir -p fonts
+          wget -O fonts/PlanschriftP1-Regular.ttf https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Planschrift_Project/releases/download/V0.0.2007-pre/PlanschriftP1-Regular.ttf
+          wget -O fonts/PlanschriftP2-Regular.ttf https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Planschrift_Project/releases/download/V0.0.2007-pre/PlanschriftP2-Regular.ttf
+          wget -O fonts/HaranoAjiMincho-Regular.otf https://github.com/trueroad/HaranoAjiFonts/raw/refs/heads/master/HaranoAjiMincho-Regular.otf
+          wget -O fonts/HaranoAjiMincho-Bold.otf https://github.com/trueroad/HaranoAjiFonts/raw/refs/heads/master/HaranoAjiMincho-Bold.otf
+          wget -O fonts/HaranoAjiGothic-Regular.otf https://github.com/trueroad/HaranoAjiFonts/raw/refs/heads/master/HaranoAjiGothic-Regular.otf
+          wget -O fonts/HaranoAjiGothic-Bold.otf https://github.com/trueroad/HaranoAjiFonts/raw/refs/heads/master/HaranoAjiGothic-Bold.otf
+
+      - name: Compile PDF
+        run: typst compile docs/doc.typ --font-path ./fonts --root . hundouk-manual.pdf
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: manual-pdf
+          path: hundouk-manual.pdf
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: hundouk-manual.pdf
