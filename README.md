@@ -63,6 +63,14 @@ typst compile docs/doc.typ --font-path fonts --root .
 typst compile slides/main.typ --font-path fonts --root .
 ```
 
+## Sponsor / スポンサー
+
+I make hundouk alone, out of love for Kanbun Kundoku. I don't have a job, and my small TA pay doesn't cover rent and food. Even one dollar on [Ko-fi](https://ko-fi.com/mkpoli) helps me eat today. Companies interested in sponsoring can write to mkpoli@mkpo.li.
+
+hundoukは、漢文訓読が好きで、一人で作っています。今は仕事がなく、わずかなTAの給料では家賃や食費もまかなえません。[Ko-fi](https://ko-fi.com/mkpoli)で1ドルでも応援していただけると、今日のごはん代になります。企業スポンサーのご相談はmkpoli@mkpo.liまでどうぞ。
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mkpoli)
+
 ## License / ライセンス
 
 [MIT License](LICENSE) (c) 2025 mkpoli
