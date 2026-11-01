@@ -63,6 +63,14 @@ typst compile docs/doc.typ --font-path fonts --root .
 typst compile slides/main.typ --font-path fonts --root .
 ```
 
+## Sponsor / スポンサー
+
+I build hundouk on my own, with no funding behind it, and it's free for everyone. If it's useful to you, a tip on [Ko-fi](https://ko-fi.com/mkpoli) or [OFUSE](https://ofuse.me/mkpoli) gives me time to keep improving it. Companies interested in sponsoring can write to mkpoli@mkpo.li.
+
+hundoukは個人で開発しており、外部からの資金援助はなく、どなたでも無料でご利用いただけます。お役に立っているようでしたら、[Ko-fi](https://ko-fi.com/mkpoli)または[OFUSE](https://ofuse.me/mkpoli)でチップをいただけると、改善を続ける時間になります。スポンサーにご興味のある企業様は、mkpoli@mkpo.liまでご連絡ください。
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/mkpoli)
+
 ## License / ライセンス
 
 [MIT License](LICENSE) (c) 2025 mkpoli
